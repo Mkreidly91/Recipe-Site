@@ -21,7 +21,6 @@ class RecipeFactory extends Factory
             'user_id' => User::all()->random(),
             'name' => $this->faker->word(),
             'cuisine' => $this->faker->word(),
-
         ];
     }
 }

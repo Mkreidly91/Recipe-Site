@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Ingredient;
+use App\Models\ShoppingList;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,8 @@ class ShoppingListItemFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "shopping_list_id" => ShoppingList::all()->random(),
+            "ingredient_id" => Ingredient::all()->random(),
         ];
     }
 }
