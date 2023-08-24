@@ -122,8 +122,8 @@ const AddPost = () => {
   };
 
   return (
-    <div className="post-page-container h-full flex justify-center items-center p-2 bg-yellow-100">
-      <div className=" w-[90%] flex justify-around gap-10 p-10 shadow-lg bg-white  rounded-2xl">
+    <div className="post-page-container h-fit w-full flex justify-center items-center p-2 pb-5 bg-yellow-100">
+      <div className=" w-[90%] mt-20 flex justify-around gap-10 p-10 shadow-lg bg-white  rounded-2xl">
         <div
           onClick={() => {
             setResults('');
