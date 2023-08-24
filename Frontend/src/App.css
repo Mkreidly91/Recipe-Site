@@ -1,2 +1,46 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+Html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+}
+
 #root {
+  width: 100%;
+  height: 100%;
+}
+
+:root {
+  --light-pink: #fed7c9;
+}
+
+a {
+  text-decoration: none;
+  font: inherit;
+}
+button {
+  all: unset;
+}
+
+.poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+.b-pink {
+  background-color: var(--light-pink);
+}
+
+.color-orange {
+  color: #ff5800;
+}
+.b-orange {
+  background-color: #ff5800;
 }
