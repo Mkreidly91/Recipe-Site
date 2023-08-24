@@ -27,7 +27,7 @@ const Card = ({ recipe, setAllRecipes }) => {
       )}
       <div
         onClick={() => setShow(true)}
-        className="flex flex-col gap-2 border w-[300px]  cursor-pointer hover:bg-slate-100"
+        className="flex flex-col gap-2 border shadow-md rounded-lg w-[300px]  cursor-pointer hover:bg-slate-100"
       >
         <div className="card-header flex flex-col gap-1  p-2 ">
           <span className="b-orange w-fit min-w-[50px] text-white text-xs text-center rounded-md py-1 px-2">
