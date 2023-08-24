@@ -8,6 +8,7 @@ use App\Models\Measurement;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -34,10 +35,20 @@ class UserController extends Controller
             });
 
             $images = $recipe->images->map(function ($image) {
+                $image_url = $image->image_url;
+                if (Storage::disk('public')->exists($image_url)) {
+                    $imageContents = Storage::disk('public')->get($image_url);
+                    $mimeType = Storage::disk('public')->mimeType($image_url);
+                    $image->image_url = 'data:' . $mimeType . ';base64,' . base64_encode($imageContents);
+
+                }
                 return [
                     "image" => $image->image_url,
                 ];
             });
+
+
+
 
             $recipe->comments = $comments;
             $recipe->ingredients = $ingredients;
