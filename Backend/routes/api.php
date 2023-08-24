@@ -23,4 +23,5 @@ Route::prefix('recipe')->group(function () {
     Route::get('getComments/{recipeId}', [RecipeController::class, 'getRecipeComments']);
     Route::post('addRecipe', [RecipeController::class, 'addRecipe']);
     Route::get('getMeasurements', [RecipeController::class, 'getMeasurements']);
+    Route::get('search/{q}', [RecipeController::class, 'search']);
 });
