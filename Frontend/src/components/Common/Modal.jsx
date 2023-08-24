@@ -1,0 +1,22 @@
+import React, { useEffect, useState } from 'react';
+
+const Modal = ({ children, className, setShow, backDropColor, togglePage }) => {
+  return (
+    <div>
+      <div
+        onClick={() => {
+          setShow((prev) => !prev);
+          togglePage('all');
+        }}
+        className={`bg fixed top-0 z-10 left-0 w-[100vw] h-full bg-opacity-20 backdrop-blur-sm drop-shadow-lg ${backDropColor} `}
+      ></div>
+      <div
+        className={`z-20 transition-opacity fixed top-1/2 left-1/2 transform  -translate-x-1/2 -translate-y-1/2 ${className} `}
+      >
+        {children}
+      </div>
+    </div>
+  );
+};
+
+export default Modal;
