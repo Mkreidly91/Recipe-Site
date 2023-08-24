@@ -11,15 +11,15 @@ const Navbar = () => {
         <img className="w-[160px]" src={logo} alt="" />
         <div className="flex gap-5">
           <Link to="/main">
-            <Button text="RECIPES" />
+            <Button text="RECIPES " className="" />
           </Link>
 
           <Link to="">
-            <Button text="SHOPPING" />
+            <Button text="SHOPPING " className="" />
           </Link>
 
           <Link to="">
-            <Button text="MEAL PLAN" />
+            <Button text="MEAL PLAN" className="" />
           </Link>
         </div>
       </nav>
