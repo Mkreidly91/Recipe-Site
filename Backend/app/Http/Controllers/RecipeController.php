@@ -71,34 +71,7 @@ class RecipeController extends Controller
             // $recipe = Recipe::With(['user', 'comments', 'likes', 'images', 'ingredients'])->find($post->id);
 
 
-            // $comments = $recipe->comments->map(function ($comment) {
-            //     return [
-            //         "comment" => $comment->comment,
-            //         "user" => $comment->user->name
-            //     ];
-            // });
 
-            // $ingredients = $recipe->ingredients->map(function ($ingredient) {
-            //     return [
-            //         "name" => $ingredient->name,
-            //         "quantity" => $ingredient->pivot->quantity,
-            //         "measurement" => Measurement::find($ingredient->pivot->measurement_id)->name
-            //     ];
-            // });
-
-            // $images = $recipe->images->map(function ($image) {
-            //     return [
-            //         "image" => $image->image_url,
-            //     ];
-            // });
-
-            // $finalResponse = array_merge($recipe->toArray(), [
-            //     "comments" => $comments,
-            //     "ingredients" => $ingredients,
-            //     "likes" => count($post->likes),
-            //     "isLiked" => Like::where('user_id', Auth::id())->where('recipe_id', $recipe->id)->exists(),
-            //     "images" => $images,
-            // ]);
 
             return response()->json([
                 'message' => 'success',
@@ -127,5 +100,66 @@ class RecipeController extends Controller
         return response()->json(
             $measurements
         );
+    }
+
+    public function search($q = " ")
+    {
+        $recipes = Recipe::where('name', 'LIKE', "%$q%")
+            ->orWhere('cuisine', 'LIKE', "%$q%")
+            ->orWhereHas('ingredients', function ($query) use ($q) {
+                $query->where('name', 'LIKE', "%$q%");
+            })
+            ->with(['user', 'ingredients', 'images', 'likes', 'comments'])
+            ->get();
+
+        $res = $recipes->map(function ($recipe) {
+            $comments = $recipe->comments->map(function ($comment) {
+                return [
+                    "comment" => $comment->comment,
+                    "user" => $comment->user->name
+                ];
+            });
+
+            $ingredients = $recipe->ingredients->map(function ($ingredient) {
+                return [
+                    "name" => $ingredient->name,
+                    "quantity" => $ingredient->pivot->quantity,
+                    "measurement" => Measurement::find($ingredient->pivot->measurement_id)->name
+                ];
+            });
+
+            $images = $recipe->images->map(function ($image) {
+                $image_url = $image->image_url;
+                if (Storage::disk('public')->exists($image_url)) {
+                    $imageContents = Storage::disk('public')->get($image_url);
+                    $mimeType = Storage::disk('public')->mimeType($image_url);
+                    $image->image_url = 'data:' . $mimeType . ';base64,' . base64_encode($imageContents);
+
+                }
+                return [
+                    "image" => $image->image_url,
+                ];
+            });
+
+
+
+
+            $recipe->comments = $comments;
+            $recipe->ingredients = $ingredients;
+
+
+            return array_merge($recipe->toArray(), [
+                "comments" => $comments,
+                "ingredients" => $ingredients,
+                "likes" => count($recipe->likes),
+                "isLiked" => Like::where('user_id', Auth::id())->where('recipe_id', $recipe->id)->exists(),
+                "images" => $images,
+            ]);
+        });
+
+        return response()->json([
+            "recipes" => $res
+        ]);
+
     }
 }
