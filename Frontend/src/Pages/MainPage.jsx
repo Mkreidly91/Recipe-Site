@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import logo from '../assets/images/Tastebite.png';
 import { getAll } from '../helpers/recipe.helpers';
 import Card from '../components/Posts/Card';
+import Search from '../components/Common/Search';
 
 const MainPage = () => {
   const [allRecipes, setAllRecipes] = useState();
@@ -18,8 +19,8 @@ const MainPage = () => {
     {} || allRecipes[0];
 
   return (
-    <div className="flex flex-col items-center px-5">
-      <img src={logo} className="w-[150px] py-10" alt="" />
+    <div className="flex flex-col items-center px-5 py-10 gap-10">
+      <Search setCards={setAllRecipes} />
 
       <div className="cards">
         <div className="flex  flex-wrap justify-center gap-5">

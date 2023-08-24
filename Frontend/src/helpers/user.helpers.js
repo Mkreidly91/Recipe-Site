@@ -21,12 +21,9 @@ async function getAllLiked() {
     console.log(error);
   }
 }
-async function search({ author = '', genre = '', keywords = '' }) {
+async function search(query = ' ') {
   try {
-    const res = await axios.get(
-      `${baseUrl}book/search/?author=${author}&genre=${genre}&keywords=${keywords}`,
-      auth()
-    );
+    const res = await axios.get(`${baseUrl}recipe/search/${query}`, auth());
     console.log(res);
     if (res.status === 200) return res.data;
   } catch (error) {
