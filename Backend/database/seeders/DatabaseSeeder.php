@@ -63,7 +63,7 @@ class DatabaseSeeder extends Seeder
         Recipe::factory(100)->create();
         Ingredient::factory(200)->create();
         RecipeIngredient::factory(500)->create();
-        Image::factory(300)->create();
+        Image::factory(400)->create();
         Like::factory(500)->create();
         Comment::factory(200)->create();
         ShoppingList::factory(100)->create();

@@ -19,7 +19,7 @@ class ImageFactory extends Factory
     {
         return [
             'recipe_id' => Recipe::all()->random(),
-            'image_url' => "https://picsum.photos/200/300/?random"
+            'image_url' => "https://picsum.photos/200/300/?" . rand(0, 100)
         ];
     }
 }
