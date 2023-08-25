@@ -86,16 +86,7 @@ class RecipeController extends Controller
         }
 
     }
-    function getRecipeComments($recipeId)
-    {
-        // $comments = Comment::Where("recipe_id", $recipeId)->with("user")->get();
-        // $comments = $comments->map(function($comment){
 
-        // })
-        // return response()->json([
-        //     "comments" => $comments
-        // ]);
-    }
     function getMeasurements()
     {
         $measurements = Measurement::all();
