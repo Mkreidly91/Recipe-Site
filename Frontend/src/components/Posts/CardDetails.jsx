@@ -9,7 +9,7 @@ import User from './user';
 import Comment from './Comment';
 import Button from '../Common/Button';
 
-import { postComment } from '../../helpers/user.helpers';
+import { createShoppingList, postComment } from '../../helpers/user.helpers';
 import { replaceObjectById } from '../../helpers/helpers';
 
 const CardDetails = ({ setShow, className, recipe, setAllRecipes }) => {
@@ -29,8 +29,13 @@ const CardDetails = ({ setShow, className, recipe, setAllRecipes }) => {
   const [allComments, setAllComments] = useState(comments);
   const [text, setText] = useState('');
 
+  console.log(recipe);
   console.log(allComments);
 
+  async function addList() {
+    const ingredientIds = ingredients.map((e) => e.id);
+    await createShoppingList({ name, ingredients: ingredientIds });
+  }
   function changeHandler(e) {
     const { value } = e.target;
     setText(value);
@@ -50,6 +55,7 @@ const CardDetails = ({ setShow, className, recipe, setAllRecipes }) => {
       return newState;
     });
   }
+
   const imageDisplay = images.map((image, index) => {
     const { image: image64 } = image;
     return (
@@ -105,7 +111,13 @@ const CardDetails = ({ setShow, className, recipe, setAllRecipes }) => {
           {/* Buttons Section */}
           <div className="buttons flex gap-5 items-center">
             <div className="button-icon flex gap-2 cursor-pointer items-center b-beige px-3 py-2 rounded-md">
-              <Button text="Create shopping list" className="text-xs" />
+              <Button
+                onClick={() => {
+                  addList();
+                }}
+                text="Create shopping list"
+                className="text-xs"
+              />
               <img src={shopping} alt="" />
             </div>
             <div className="button-icon flex gap-2 cursor-pointer items-center b-beige px-3 py-2 rounded-md">
