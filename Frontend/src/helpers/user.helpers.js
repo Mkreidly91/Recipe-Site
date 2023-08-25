@@ -84,6 +84,38 @@ async function addPost(data) {
   }
 }
 
+async function createShoppingList({ name, ingredients }) {
+  try {
+    const res = await axios.post(
+      `${baseUrl}recipe/createShoppingList`,
+      {
+        name,
+        ingredients,
+      },
+      auth()
+    );
+
+    console.log(res.data);
+    if (res.status === 200) {
+      return res.data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function getShoppingLists() {
+  try {
+    const res = await axios.get(`${baseUrl}recipe/getShoppingLists`, auth());
+    if (res.status === 200) {
+      console.log(res.data);
+      return res.data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export {
   getAllFollowed,
   postComment,
@@ -91,4 +123,6 @@ export {
   search,
   getAllLiked,
   addPost,
+  createShoppingList,
+  getShoppingLists,
 };
