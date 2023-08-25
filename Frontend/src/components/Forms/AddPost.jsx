@@ -122,7 +122,7 @@ const AddPost = () => {
   };
 
   return (
-    <div className="post-page-container h-fit w-full flex justify-center items-center p-2 pb-5 bg-yellow-100">
+    <div className="post-page-container h-fit w-full flex justify-center items-center p-2 pb-5 bg-yellow-100 min-h-[100vh]">
       <div className=" w-[90%] mt-20 flex justify-around gap-10 p-10 shadow-lg bg-white  rounded-2xl">
         <div
           onClick={() => {

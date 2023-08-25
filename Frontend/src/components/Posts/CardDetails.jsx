@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Modal from '../Common/Modal';
-import cross from '../../assets/icons/card/cross.svg';
+import back from '../../assets/icons/card/back.svg';
+import shopping from '../../assets/icons/card/shopping.svg';
+import share from '../../assets/icons/card/share.svg';
 
 import TextArea from '../Inputs/TextArea';
 import User from './user';
@@ -57,7 +59,7 @@ const CardDetails = ({ setShow, className, recipe, setAllRecipes }) => {
           setCurrentImage(image64);
         }}
         src={image64}
-        className="h-full"
+        className="h-full rounded-md"
         alt=""
       />
     );
@@ -66,53 +68,80 @@ const CardDetails = ({ setShow, className, recipe, setAllRecipes }) => {
   const ingredientDisplay = ingredients.map((ingredient, index) => {
     const { name, quantity, measurement } = ingredient;
     return (
-      <span key={index} className="text-xs">
+      <span key={index} className="text-sm mt-2">
         - {quantity} {measurement} {name}
       </span>
     );
   });
 
   const commentDisplay = allComments.map((comment, index) => {
-    return <Comment comment={comment} />;
+    return (
+      <div className="py-3 border-t">
+        <Comment comment={comment} />
+      </div>
+    );
   });
 
   return (
     <Modal
       setShow={setShow}
-      className={`w-full h-full flex flex-col justify-start gap-5 p-5 b-pink fixed overflow-y-scroll   `}
+      className={`w-full h-full flex flex-col justify-start gap-5 py-5 b-pink fixed overflow-y-scroll bg-white   `}
     >
-      <div className="card-details-header flex flex-col gap-3 ">
-        <div className="flex items-center justify-between">
+      <img
+        src={back}
+        className=" w-[30px] left-20 cursor-pointer position absolute z-30"
+        onClick={() => {
+          setShow((prev) => !prev);
+        }}
+      />
+      <div className="card-details-header flex  gap- shadow-md pb-5 ">
+        <div className="flex flex-col items-start justify-center gap-8 w-[50%] pl-20">
+          <div className="cuisine font-semibold py-1 px-2 b-orange text-white text-center rounded-md  text-lg">
+            {cuisine}
+          </div>
           <div className="title font-bold  text-5xl">{name}</div>
-          <img
-            src={cross}
-            className="cursor-pointer"
-            onClick={() => {
-              setShow((prev) => !prev);
-            }}
-          />
+
+          <User user={user} />
+          {/* Buttons Section */}
+          <div className="buttons flex gap-5 items-center">
+            <div className="button-icon flex gap-2 cursor-pointer items-center b-beige px-3 py-2 rounded-md">
+              <Button text="Create shopping list" className="text-xs" />
+              <img src={shopping} alt="" />
+            </div>
+            <div className="button-icon flex gap-2 cursor-pointer items-center b-beige px-3 py-2 rounded-md">
+              <Button text="Share" className="text-xs" />
+              <img src={share} alt="" />
+            </div>
+          </div>
         </div>
-        <User user={user} />
+
+        {/* Images section */}
+        <div className="image-preview flex flex-col gap-2 grow">
+          <img
+            src={currentImage}
+            className="w-full h-[500px] rounded-md  "
+            alt=""
+          />
+          <div className="allImages h-[100px]   flex flex-wrap gap-1">
+            {imageDisplay}
+          </div>
+        </div>
       </div>
 
       <div className="card-details-body flex flex-col gap-10">
-        {/* Images section */}
-        <div className="image-preview">
-          <img src={currentImage} className="w-full h-[500px] " alt="" />
-        </div>
-        <div className="allImages h-[200px]   flex flex-wrap gap-1">
-          {imageDisplay}
-        </div>
-
         {/* Ingredients Section */}
-        <div className="ingredients-section flex flex-col gap-1">
-          <span className="text-2xl font-semibold mb-5">Ingredients</span>
+        <div className="ingredients-section flex flex-col gap-1 px-20">
+          <div className="text-3xl font-bold mb-5  border-b-2 border-black pb-5 mt-3  ">
+            Ingredients
+          </div>
           {ingredientDisplay}
         </div>
 
         {/* Comments Section */}
-        <div className="comments-section flex flex-col gap-3">
-          <span className="text-2xl font-semibold mb-5">Comments</span>
+        <div className="comments-section flex flex-col gap-3 px-20">
+          <div className="text-3xl font-bold mb-5  border-b-2 border-black pb-5 mt-3  ">
+            Comments
+          </div>
           <TextArea
             placeholder="Comment on this recipe"
             className="h-[100px]"
