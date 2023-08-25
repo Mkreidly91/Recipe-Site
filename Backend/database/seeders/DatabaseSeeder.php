@@ -66,8 +66,8 @@ class DatabaseSeeder extends Seeder
         Image::factory(400)->create();
         Like::factory(500)->create();
         Comment::factory(200)->create();
-        ShoppingList::factory(100)->create();
-        ShoppingListItem::factory(200)->create();
+        // ShoppingList::factory(100)->create();
+        // ShoppingListItem::factory(200)->create();
 
 
     }

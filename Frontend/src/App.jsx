@@ -7,6 +7,8 @@ import SignUpPage from './Pages/SignUpPage';
 import MainPage from './Pages/MainPage';
 import AddPost from './components/Forms/AddPost';
 import Navbar from './components/Common/Navbar';
+import ShoppingPage from './Pages/Shopping';
+ShoppingPage;
 
 function App() {
   const showNavbar =
@@ -20,6 +22,7 @@ function App() {
 
         <Route path="/main" element={<MainPage />} />
         <Route path="/post" element={<AddPost />} />
+        <Route path="/shopping" element={<ShoppingPage />} />
       </Routes>
     </div>
   );

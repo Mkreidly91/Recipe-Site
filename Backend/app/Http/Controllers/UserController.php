@@ -28,6 +28,7 @@ class UserController extends Controller
 
             $ingredients = $recipe->ingredients->map(function ($ingredient) {
                 return [
+                    "id" => $ingredient->id,
                     "name" => $ingredient->name,
                     "quantity" => $ingredient->pivot->quantity,
                     "measurement" => Measurement::find($ingredient->pivot->measurement_id)->name

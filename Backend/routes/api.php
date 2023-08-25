@@ -24,4 +24,6 @@ Route::prefix('recipe')->group(function () {
     Route::post('addRecipe', [RecipeController::class, 'addRecipe']);
     Route::get('getMeasurements', [RecipeController::class, 'getMeasurements']);
     Route::get('search/{q}', [RecipeController::class, 'search']);
+    Route::post('createShoppingList', [RecipeController::class, 'createShoppingList']);
+    Route::get('getShoppingLists', [RecipeController::class, 'getShoppingLists']);
 });

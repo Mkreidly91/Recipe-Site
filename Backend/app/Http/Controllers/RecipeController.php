@@ -8,6 +8,8 @@ use App\Models\Like;
 use App\Models\Measurement;
 use App\Models\Recipe;
 use App\Models\RecipeIngredient;
+use App\Models\ShoppingList;
+use App\Models\ShoppingListItem;
 use Illuminate\Http\Request;
 use \App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
@@ -159,7 +161,36 @@ class RecipeController extends Controller
 
         return response()->json([
             "recipes" => $res
-        ]);
+        ], 200);
 
+    }
+
+    public function getShoppingLists()
+    {
+        $shoppingLists = ShoppingList::with('shoppingListItems.ingredient')->get();
+
+        return response()->json($shoppingLists);
+    }
+
+    function createShoppingList(Request $request)
+    {
+
+        $user = Auth::user();
+        $ingredientIds = $request->ingredients;
+        $name = $request->name;
+
+        $shoppingList = new ShoppingList;
+        $shoppingList->name = $name;
+        $shoppingList->user_id = $user->id;
+        $shoppingList->save();
+
+        foreach ($ingredientIds as $ingredientId) {
+            $shoppingListItem = new ShoppingListItem();
+            $shoppingListItem->shopping_list_id = $shoppingList->id;
+            $shoppingListItem->ingredient_id = $ingredientId;
+            $shoppingListItem->save();
+        }
+
+        return response()->json(['message' => 'successs'], 200);
     }
 }
